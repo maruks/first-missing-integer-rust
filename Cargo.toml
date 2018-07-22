@@ -1,0 +1,6 @@
+[package]
+name = "problem4"
+version = "0.1.0"
+authors = ["Maris Orbidans <maris.orbidans@onthemarket.com>"]
+
+[dependencies]
