@@ -5,9 +5,7 @@ fn smallest_positive_integer_not_in_array(mut v: Vec<i32>) -> i32 {
 
     while index < v.len() {
 
-        if v[index] == 1 + index as i32 || v[index] < 1 || v[index] > v.len() as i32 {
-            index = index + 1;
-        } else if v[index] > 0 && v[index] <= v.len() as i32 {
+        if v[index] != 1 + index as i32 && v[index] > 0 && v[index] <= v.len() as i32 {
 
             let mut n = v[index];
 
@@ -17,24 +15,17 @@ fn smallest_positive_integer_not_in_array(mut v: Vec<i32>) -> i32 {
                 v[n as usize - 1] = n;
                 n = nextn;
             }
-
-            index = index + 1;
         }
+
+        index = index + 1;
     }
 
-    let mut result = v.len() + 1;
     index = 0;
-    while index < v.len() {
-
-        if v[index] == 1 + index as i32 {
-            index = index + 1;
-        } else {
-            result = index + 1;
-            break;
-        }
+    while index < v.len() && v[index] == 1 + index as i32 {
+        index = index + 1;
     }
 
-    result as i32
+    1 + index as i32
 }
 
 fn main() {
