@@ -46,7 +46,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use smallest_positive_integer_not_in_array;
+    use super::*;
     #[test]
     fn smallest_positive_integer_not_in_array_test() {
         assert_eq!(smallest_positive_integer_not_in_array(vec![3, 4, -1, 1]), 2);
