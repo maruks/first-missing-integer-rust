@@ -1,16 +1,16 @@
+#[macro_use]
+extern crate proptest;
+
 use std::io;
 
 fn smallest_positive_integer_not_in_array(mut v: Vec<i32>) -> i32 {
     let mut index = 0;
 
     while index < v.len() {
-
         if v[index] != 1 + index as i32 && v[index] > 0 && v[index] <= v.len() as i32 {
-
             let mut n = v[index];
 
             while n > 0 && n <= v.len() as i32 && v[n as usize - 1] != n as i32 {
-
                 let nextn = v[n as usize - 1];
                 v[n as usize - 1] = n;
                 n = nextn;
@@ -52,4 +52,20 @@ mod tests {
         assert_eq!(smallest_positive_integer_not_in_array(vec![3, 4, -1, 1]), 2);
         assert_eq!(smallest_positive_integer_not_in_array(vec![1, 2, 0]), 3);
     }
+
+    proptest! {
+
+        #[test]
+        fn number_is_not_in_vector(xs in proptest::collection::vec(-10i32..10000, 1..20000))  {
+            let result = smallest_positive_integer_not_in_array(xs.clone());
+            prop_assert!(!xs.contains(&result));
+        }
+        #[test]
+        fn number_is_positive(xs in proptest::collection::vec(-10i32..10000, 1..20000))  {
+            let result = smallest_positive_integer_not_in_array(xs);
+            prop_assert!(result > 0);
+        }
+
+    }
+
 }
